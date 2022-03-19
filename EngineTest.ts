@@ -131,3 +131,39 @@ Deno.test("a board with four red chips in a row has a winner", () => {
 
     assertEquals(state.winner, Player.Red);
 });
+
+Deno.test("a board with four yellow chips in a row has a winner", () => {
+    const startState: State = new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Yellow,Player.Yellow,Player.Yellow],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+    ], undefined);
+
+    const board: Board = new Board(startState);
+
+    const engine = new Engine(board);
+    const state = engine.takeTurn(0, 3, Player.Yellow);
+
+    assertEquals(state.winner, Player.Yellow);
+});
+
+Deno.test("a board with three red chips and one yellow in a row does not have a winner", () => {
+    const startState: State = new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Yellow,Player.Red,Player.Red],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+    ], undefined);
+
+    const board: Board = new Board(startState);
+
+    const engine = new Engine(board);
+    const state = engine.takeTurn(0, 3, Player.Red);
+
+    assertEquals(state.winner, undefined);
+});
