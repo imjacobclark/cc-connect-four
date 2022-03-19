@@ -1,10 +1,14 @@
 import { assertEquals } from "https://deno.land/std@0.130.0/testing/asserts.ts";
 
+const NUM_OF_ROWS = 6;
+const NUM_OF_COLS = 7;
+
 enum Player {
     Red,
     Yellow,
     Empty
 }
+
 
 class State {
     positions: Array<Array<Player>>;
@@ -37,8 +41,18 @@ class PositionNavigator {
         this.colDirection = colDirection;
     }
 
+    private validatePosition(navigatable: number, limit: number): boolean{
+        return !(navigatable < 0 || navigatable > limit)
+    }
+
+
     navigate(){
-        return this.state.positions[this.row+this.rowDirection][this.col+this.colDirection];
+        const rowToNavigateTo = this.row + this.rowDirection;
+        const colToNavigateTo = this.col + this.colDirection;
+        const navigatedRowIsValid = this.validatePosition(rowToNavigateTo, NUM_OF_ROWS);
+        const navigatedColIsValid = this.validatePosition(colToNavigateTo, NUM_OF_COLS);
+
+        return navigatedRowIsValid && navigatedColIsValid ? this.state.positions[rowToNavigateTo][colToNavigateTo] : undefined;
     }
 }
 
@@ -50,6 +64,8 @@ class Engine {
 
     private checkInDirection(navigator: PositionNavigator, player: Player, count: number): Player | undefined {
         const positionToCheckPlayer = navigator.navigate();
+
+        if(positionToCheckPlayer === undefined) return undefined;
 
         if(positionToCheckPlayer === player) {
             if(count === 2){
@@ -167,3 +183,30 @@ Deno.test("a board with three red chips and one yellow in a row does not have a 
 
     assertEquals(state.winner, undefined);
 });
+
+Deno.test("the position navigator cant check a row that does not exist", () => {
+    const navigator = new PositionNavigator(new State([[Player.Empty]], undefined), 0, 0, -1, 0);
+
+    navigator.navigate();
+})
+
+Deno.test("the position navigator cant check a row that does not exist", () => {
+    const navigator = new PositionNavigator(new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty]
+    ], undefined), 6, 0, 1, 0);
+
+    navigator.navigate();
+})
+
+Deno.test("the position navigator cant check a column that does not exist", () => {
+    const navigator = new PositionNavigator(new State([
+        [Player.Empty],
+        [Player.Empty],
+        [Player.Empty],
+        [Player.Empty],
+        [Player.Empty],
+        [Player.Empty]
+    ], undefined), 0, 6, 0, 1);
+
+    navigator.navigate();
+})
