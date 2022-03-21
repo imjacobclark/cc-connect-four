@@ -4,7 +4,7 @@ import State from './src/State.ts';
 import Player from './src/Player.ts';
 import PlayerFactory from './src/PlayerFactory.ts';
 
-const lettersToIndex: any = {
+const lettersToIndex: Record<string, number> = {
     "A": 0,
     "B": 1,
     "C": 2,
@@ -14,7 +14,7 @@ const lettersToIndex: any = {
     "G": 6,
 }
 
-const connectFour = (moves: Array<string>): any => {
+const connectFour = (moves: Array<string>): Player | undefined => {
     const board = new Board(new State([
         [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
         [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
@@ -45,7 +45,7 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "B_Yellow",
     "G_Red",
     "B_Yellow"
-])));
+]) || Player.Empty));
 
 console.log(PlayerFactory.getPlayerAsString(connectFour([
     "A_Red",
@@ -55,7 +55,7 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "C_Red",
     "E_Yellow",
     "D_Red"
-])));
+]) || Player.Empty));
 
 console.log(PlayerFactory.getPlayerAsString(connectFour([
     "B_Yellow",
@@ -69,4 +69,4 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "E_Yellow",
     "F_Red",
     "E_Yellow"
-])));
+]) || Player.Empty));

@@ -1,5 +1,4 @@
 import { Application, Router, helpers } from "https://deno.land/x/oak/mod.ts";
-import { v4 } from "https://deno.land/std@0.130.0/uuid/mod.ts";
 import Engine from './src/Engine.ts'
 import Board from './src/Board.ts'
 import State from './src/State.ts'
