@@ -29,6 +29,6 @@ export default class PositionNavigator {
         const navigatedRowIsValid = this.validatePosition(rowToNavigateTo, NUM_OF_ROWS);
         const navigatedColIsValid = this.validatePosition(colToNavigateTo, NUM_OF_COLS);
 
-        return navigatedRowIsValid && navigatedColIsValid ? this.state.positions[rowToNavigateTo][colToNavigateTo] : undefined;
+        return (navigatedRowIsValid && navigatedColIsValid && this.state.positions[rowToNavigateTo]) ? this.state.positions[rowToNavigateTo][colToNavigateTo] : undefined;
     }
 }

@@ -42,9 +42,7 @@ router
         const body = await result.value;
 
         const game = games.get(query.id);
-        game?.takeTurn(body.row, body.col, PlayerFactory.getPlayer(body.player));
-
-        console.log(game);
+        game?.dropToken(body.col, PlayerFactory.getPlayer(body.player));
 
         context.response.body = {
             positions: game

@@ -193,3 +193,33 @@ Deno.test("the engine yeilds the correct winnner with a complex game ", () => {
 
     assertEquals(state.winner, Player.Red);
 });
+
+Deno.test("tokens are dropped to appropriate slot", () => {
+    const startState: State = new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+    ], undefined);
+
+    const endState: State = new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Red,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Red,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Red,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+    ], undefined);
+
+    const board: Board = new Board(startState);
+
+    const engine = new Engine(board);
+    engine.dropToken(0, Player.Red);
+    engine.dropToken(0, Player.Red);
+    engine.dropToken(0, Player.Red);
+
+    assertEquals(engine.board.state, endState);
+
+});

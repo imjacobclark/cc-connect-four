@@ -46,4 +46,20 @@ export default class Engine {
 
         return new State(state.positions, winner);
     }
+
+    private recursivelyDropToken(row: number, col: number, player: Player): State {
+        const state = this.board.state;
+
+        if(row === 5){
+            return this.takeTurn(row, col, player);
+        }
+        
+        const nextSlotDown = new PositionNavigator(state, row, col, 1, 0).navigate();
+
+        return nextSlotDown === Player.Empty ? this.recursivelyDropToken(row + 1, col, player) : this.takeTurn(row, col, player);
+    }
+
+    public dropToken(col: number, player: Player): State {
+        return this.recursivelyDropToken(0, col, player);
+    }
 }
