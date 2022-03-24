@@ -12,13 +12,32 @@ Deno.test("a board with one chip has no winner", () => {
         [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
         [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
         [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
-        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Red,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
     ], undefined);
 
     const board: Board = new Board(startState);
 
     const engine = new Engine(board);
     const state = engine.takeTurn(0, 0, Player.Red);
+
+    assertEquals(state.winner, undefined);
+});
+
+Deno.test({name: "a board with two chips in a row has no winner", only: false}, () => {
+    const startState: State = new State([
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+        [Player.Red,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty,Player.Empty],
+    ], undefined);
+
+    const board: Board = new Board(startState);
+
+    const engine = new Engine(board);
+    engine.takeTurn(0, 0, Player.Red);
+    const state = engine.takeTurn(0, 1, Player.Red);
 
     assertEquals(state.winner, undefined);
 });
@@ -135,7 +154,7 @@ Deno.test("a board with four red chips in a column has a winner", () => {
     const board: Board = new Board(startState);
 
     const engine = new Engine(board);
-    const state = engine.takeTurn(3, 0, Player.Red);
+    const state = engine.takeTurn(2, 0, Player.Red);
 
     assertEquals(state.winner, Player.Red);
 });

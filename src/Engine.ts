@@ -15,6 +15,7 @@ export default class Engine {
 
         if(positionToCheckPlayer === undefined) return undefined;
 
+
         if(positionToCheckPlayer === player) {
             if(count === 2){
                 return player;
@@ -41,6 +42,7 @@ export default class Engine {
         const isWinnerOfACol = this.checkInDirection(colNavigator, player, 0) === player;
         const isWinnerOfLeftDiag = this.checkInDirection(leftDiagNavigator, player, 0) === player;
         const isWinnerOfRightDiag = this.checkInDirection(rightDiagNavigator, player, 0) === player;
+
         
         const winner = isWinnerOfARowToTheLeft || isWinnerOfARowToTheRight || isWinnerOfACol || isWinnerOfLeftDiag || isWinnerOfRightDiag ? player : undefined;
 
