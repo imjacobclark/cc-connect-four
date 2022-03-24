@@ -24,3 +24,7 @@ deno run SameplSetOfMoves.ts
 ```shell
 deno run --allow-env app.ts
 ``` 
+
+## Architecture
+
+![](./architecture.png)

@@ -15,7 +15,6 @@ export default class Engine {
 
         if(positionToCheckPlayer === undefined) return undefined;
 
-
         if(positionToCheckPlayer === player) {
             if(count === 2){
                 return player;
