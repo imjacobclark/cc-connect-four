@@ -20,7 +20,7 @@ jobs:
           deno-version: v1.x
 
       - name: Run linter
-        run: deno lint ./api
+        run: deno lint
 
       - name: Run tests
-        run: deno test -A --unstable ./api
+        run: deno test -A --unstable
