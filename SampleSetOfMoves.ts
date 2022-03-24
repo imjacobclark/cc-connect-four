@@ -36,7 +36,9 @@ const connectFour = (moves: Array<string>): Player | undefined => {
     
 }
 
-console.log(PlayerFactory.getPlayerAsString(connectFour([
+const formattedPlayer = (winner: Player | undefined) => winner === undefined ? "No winner" : winner === Player.Red ? "Red" : "Yellow"
+
+console.log(formattedPlayer(connectFour([
     "A_Red",
     "B_Yellow",
     "A_Red",
@@ -45,9 +47,9 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "B_Yellow",
     "G_Red",
     "B_Yellow"
-]) || Player.Empty));
+])));
 
-console.log(PlayerFactory.getPlayerAsString(connectFour([
+console.log(formattedPlayer(connectFour([
     "A_Red",
     "G_Yellow",
     "B_Red",
@@ -55,9 +57,9 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "C_Red",
     "E_Yellow",
     "D_Red"
-]) || Player.Empty));
+])));
 
-console.log(PlayerFactory.getPlayerAsString(connectFour([
+console.log(formattedPlayer(connectFour([
     "B_Yellow",
     "C_Red",
     "C_Yellow",
@@ -69,4 +71,4 @@ console.log(PlayerFactory.getPlayerAsString(connectFour([
     "E_Yellow",
     "F_Red",
     "E_Yellow"
-]) || Player.Empty));
+])));
