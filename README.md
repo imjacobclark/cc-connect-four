@@ -1,6 +1,8 @@
 # cc-connect-four
 AND Digital - Connect Four coding challenge
 
+Built with TypeScript on Deno. 
+
 ## Setup Engine:
 
 ```shell
